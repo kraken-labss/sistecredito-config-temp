@@ -54,7 +54,7 @@ function sc_api_call(string $endpoint, ?array $body = null, string $method = 'GE
     // (caso api-sistecredito hace echo del HTML crudo en vez de fallar)
     $cleanError = ['success' => false, 'error' => 'El servicio no esta disponible temporalmente. Intenta mas tarde.', '_blocked' => true];
     if (is_array($json)) {
-        // si las claves error/message/某 value contienen "Sorry, you have been blocked" o cloudflare
+        // si las claves error/message/value contienen "Sorry, you have been blocked" o cloudflare
         $scan = json_encode($json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         if (preg_match('/Sorry, you have been blocked|Attention Required!|cf-error-details|cloudflare\.com\/5xx-error/i', $scan)) {
             return ['status' => 503, 'json' => $cleanError, 'text' => json_encode($cleanError)];
